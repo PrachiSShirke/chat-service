@@ -2,6 +2,16 @@
 # This pipeline updates the image and port on the existing Cloud Run service.
 # Apply service.yaml separately when changing runtime configuration.
 steps:
+
+  - id: unit-tests
+    name: python:3.11-slim
+    entrypoint: sh
+    args:
+      - -c
+      - |
+        pip install --no-cache-dir -r requirements.txt &&
+        python -m unittest discover -s tests -v
+
   # Build the checked-out GitHub source using the repository's Dockerfile.
   - id: build
     name: gcr.io/cloud-builders/docker
