@@ -70,5 +70,10 @@ def chat_endpoint(message:ChatRequest):
 
 
 @app.get("/")
+
 def home():
-    return {"message": "Hello FastAPI"}
+
+    return {
+        "message": "Deployed automatically with Cloud Build!",
+        "version": "2.0"
+    }
