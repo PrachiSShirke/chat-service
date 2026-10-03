@@ -1,0 +1,38 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: chat-service
+  annotations:
+    run.googleapis.com/ingress: all
+    run.googleapis.com/invoker-iam-disabled: 'true'
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: '0'
+        autoscaling.knative.dev/maxScale: '2'
+    spec:
+      serviceAccountName: chat-service-runtime@project-4c0b47fc-203d-4c2e-a87.iam.gserviceaccount.com
+      containers:
+        - image: asia-south1-docker.pkg.dev/project-4c0b47fc-203d-4c2e-a87/chat-service-repo/chat-service@sha256:a6cfe9537a960cfa1fde2b6bc9edfa9c53649a6f5b0f54c466a9a888de16b67b
+          command: ['uvicorn']
+          args: ['main:app', '--host', '0.0.0.0', '--port', '8000', '--env-file', '/secrets/.env']
+          ports:
+            - containerPort: 8000
+          resources:
+            limits:
+              cpu: '1'
+              memory: 512Mi
+          volumeMounts:
+            - name: app-env
+              mountPath: /secrets
+      volumes:
+        - name: app-env
+          secret:
+            secretName: chat-service-env
+            items:
+              - key: latest
+                path: .env
+  traffic:
+    - latestRevision: true
+      percent: 100

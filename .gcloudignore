@@ -1,0 +1,8 @@
+.env
+.venv/
+.git/
+.vscode/
+__pycache__/
+*.py[cod]
+__MACOSX/
+*.pdf
