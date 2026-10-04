@@ -1,0 +1,20 @@
+# Pull-request trigger: use a test-only service account with Logs Writer.
+# No application secrets or deployment permissions are needed for these tests.
+steps:
+  - id: unit-tests
+    name: python:3.11-slim
+    entrypoint: sh
+    args:
+      - -c
+      - |
+        pip install --no-cache-dir -r requirements.txt &&
+        python -m unittest discover -s tests -v
+
+  - id: docker-build-check
+    name: gcr.io/cloud-builders/docker
+    args: ['build', '--platform=linux/amd64', '-t', 'chat-pr-check:$BUILD_ID', '.']
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+timeout: 1200s
