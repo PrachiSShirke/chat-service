@@ -14,7 +14,7 @@ spec:
         autoscaling.knative.dev/minScale: '0'
         autoscaling.knative.dev/maxScale: '2'
     spec:
-      serviceAccountName: chat-prod-runtime@new-project-506711.iam.gserviceaccount.com
+      serviceAccountName: chat-prod-runtime@project-4c0b47fc-203d-4c2e-a87.iam.gserviceaccount.com
       containers:
         # Cloud Deploy/Skaffold replaces this with the release's image digest.
         - image: book-chat-image

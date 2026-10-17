@@ -15,10 +15,10 @@ kind: Target
 metadata:
   name: staging
 run:
-  location: projects/new-project-506711/locations/asia-south1
+  location: projects/project-4c0b47fc-203d-4c2e-a87/locations/asia-south1
 executionConfigs:
   - usages: [RENDER, DEPLOY]
-    serviceAccount: chat-deploy-executor@new-project-506711.iam.gserviceaccount.com
+    serviceAccount: chat-deploy-executor@project-4c0b47fc-203d-4c2e-a87.iam.gserviceaccount.com
 ---
 apiVersion: deploy.cloud.google.com/v1
 kind: Target
@@ -26,7 +26,7 @@ metadata:
   name: production
 requireApproval: true
 run:
-  location: projects/new-project-506711/locations/asia-south1
+  location: projects/project-4c0b47fc-203d-4c2e-a87/locations/asia-south1
 executionConfigs:
   - usages: [RENDER, DEPLOY]
-    serviceAccount: chat-deploy-executor@new-project-506711.iam.gserviceaccount.com
+    serviceAccount: chat-deploy-executor@project-4c0b47fc-203d-4c2e-a87.iam.gserviceaccount.com
